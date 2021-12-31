@@ -1,15 +1,13 @@
 //On commence par importer le framework express
 const express = require('express');
 
-//Création d'un router
+//Création d'un router express
 const router = express.Router();
 
-router.post('/signup', (req, res, next) => {
-    res.status(201).send('Requête POST sur port 3000');
-});
+//Importation des controleurs
+const authCtrl = require('../controllers/auth'); //contrôleur utilisateurs
 
-router.post('/login', (req, res, next) => {
-    res.status(201).send('Requête POST sur port 3000');
-});
+router.post('/signup', authCtrl.createUser); //Création de comptes
+router.post('/login', authCtrl.connectUser); //Connexion comptes
 
 module.exports = router;

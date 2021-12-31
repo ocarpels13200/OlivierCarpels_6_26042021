@@ -4,28 +4,15 @@ const express = require('express');
 //Création d'un router
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-    res.status(200).send('Requête POST sur port 3000');
-});
+//Importation des controleurs
+const saucesCtrl = require('../controllers/sauces'); //contrôleur sauces
 
-router.get('/:id', (req, res, next) => {
-    res.status(200).send('Requête POST sur port 3000');
-});
+router.get('/', saucesCtrl.getSauces); //Affichage des sauces
+router.get('/:id', saucesCtrl.getOneSauce); //Affichage d'une sauce
+router.post('/', saucesCtrl.addSauce); //Ajouter une sauce
+router.put('/:id', saucesCtrl.updateSauce); //Mise à jour d'une sauce
+router.delete('/:id', saucesCtrl.deleteSauce); //Supprimer une sauce
+router.post('/:id/like', saucesCtrl.likesauce); //Vote pour une sauce
 
-router.post('/', (req, res, next) => {
-    res.status(201).send('Requête POST sur port 3000');
-});
-
-router.put('/:id', (req, res, next) => {
-    res.status(201).send('Requête POST sur port 3000')
-});
-
-router.delete('/:id', (req, res, next) => {
-    res.status(201).send('Requête POST sur port 3000');
-});
-
-router.post('/:id/like', (req, res, next) => {
-    res.status(201).send('Requête POST sur port 3000');
-});
 
 module.exports = router;
