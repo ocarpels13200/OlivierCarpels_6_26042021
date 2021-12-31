@@ -1,34 +1,37 @@
 //On commence par importer le framework express
 const express = require('express');
 
-//Création d'une application express en appelant la méthode express
+//On importe mongoose
+const mongoose = require('mongoose');
+
+//importation router
+const authRoutes = require('./src/routes/auth');
+
+//Création d'une application express
 const app = express();
 
+//Conexion à la base de données
+mongoose.connect('mongodb+srv://ocarpels:q$O9Z&6aN28U@cluster0.ih2a2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    { useNewUrlParser: true,
+        useUnifiedTopology: true })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'));
+
 /*Fonctions de l'application prenant comme paramètres la requête et la réponse.
-Chaque fonction dans une application express est un élément du Middleware
-On passe à la fonction suivante grâce au paramètre next
+Chaque fonction dans une application express est appelé Middleware
+On passe au middleware suivant grâce au paramètre next
 */
+
+app.use(express.json());//Middleware permettant d'extraire le corps JSON de la requête
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
-}); //élément 1 du Middleware donnant l'éccés à note API
+}); //Middleware donnant l'éccés à note API corrige l'érreur CORS
 
-app.post('/api/auth/signup', (req, res, next) => {
-    console.log('Bravo');
-    res.status(201);
-}); //élément 2 du Middleware
-
-app.post('/api/auth/login', (req, res, next) => {
-    console.log('Bravo');
-    res.status(201);
-}); //élément 3 du Middleware
-
-app.get('/api/sauces', (req, res, next) => {
-    console.log('Bravo');
-    res.status(200);
-}); //élément 4 du Middleware
+app.use('/api/auth', authRoutes);
 
 //Exportation de l'application
 module.exports = app;
