@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 //importation router
 const authRoutes = require('./src/routes/auth');
+const saucesRoutes = require('./src/routes/sauces');
 
 //Création d'une application express
 const app = express();
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 }); //Middleware donnant l'éccés à note API corrige l'érreur CORS
 
 app.use('/api/auth', authRoutes);
+app.use('/api/sauces', saucesRoutes);
 
 //Exportation de l'application
 module.exports = app;

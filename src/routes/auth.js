@@ -5,13 +5,11 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/signup', (req, res, next) => {
-    res.send('Requête POST sur port 3000')
-    res.status(201)
+    res.status(201).send('Requête POST sur port 3000');
 });
 
 router.post('/login', (req, res, next) => {
-    console.log('Requête POST sur port 3000');
-    res.status(201);
-}); //Middleware
+    res.status(201).send('Requête POST sur port 3000');
+});
 
 module.exports = router;
