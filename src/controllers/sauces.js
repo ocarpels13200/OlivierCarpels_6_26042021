@@ -10,7 +10,7 @@ exports.getSauces = (req, res, next) => {
 };
 
 exports.getOneSauce = (req, res, next) => {
-    Thing.findOne({ _id: req.params.id })
+    Sauces.findOne({ _id: req.params.id })
         .then( sauce => res.status(200).json(sauce))
         .catch( error => res.status(404).json({ error }));
 };
@@ -26,11 +26,15 @@ exports.addSauce = (req, res, next) => {
 };
 
 exports.updateSauce = (req, res, next) => {
-    res.status(201).send('Requête POST sur port 3000')
+    Sauces.updateOne( { _id: req.params.id }, { ...req.body, _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Sauce modifié' }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 exports.deleteSauce = (req, res, next) => {
-    res.status(201).send('Requête POST sur port 3000');
+    Sauces.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Sauce supprimée' }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 exports.likesauce = (req, res, next) => {
