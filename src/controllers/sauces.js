@@ -3,6 +3,8 @@
 //Appel du model auth pour obtenir le schema de la BDD
 const Sauces = require('../models/sauces');
 
+const fs = require('fs');
+
 exports.getSauces = (req, res, next) => {
     Sauces.find()
         .then(sauces => res.status(200).json(sauces))
@@ -16,9 +18,11 @@ exports.getOneSauce = (req, res, next) => {
 };
 
 exports.addSauce = (req, res, next) => {
-    delete req.body._id;
+    const sauceObject = JSON.parse(req.body.sauce);
+    delete sauceObject._id;
     const sauce = new Sauces({
-        ...req.body //Opérateur de propagation spread, récupére le contenu du body
+        ...sauceObject, //Opérateur de propagation spread, récupére le contenu du body
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
     sauce.save() //Ajout d'une sauce à la base de donnée
         .then(() => res.status(201).json({ message: 'Sauce ajoutée'}))
@@ -26,15 +30,27 @@ exports.addSauce = (req, res, next) => {
 };
 
 exports.updateSauce = (req, res, next) => {
-    Sauces.updateOne( { _id: req.params.id }, { ...req.body, _id: req.params.id })
+    const sauceObject = req.file ?
+        {
+            ...JSON.parse(req.body.sauce),
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        } : { ...req.body };
+    Sauces.updateOne( { _id: req.params.id }, { ...sauceObject, _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Sauce modifié' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.deleteSauce = (req, res, next) => {
-    Sauces.deleteOne({ _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Sauce supprimée' }))
-        .catch(error => res.status(400).json({ error }));
+    Sauces.findOne( { _id: req.params.id } )
+        .then(sauce => {
+            const filename = sauce.imageUrl.split('/images/')[1];
+            fs.unlink( `images/${filename}`, () => {
+                Sauces.deleteOne({ _id: req.params.id })
+                    .then(() => res.status(200).json({ message: 'Sauce supprimée' }))
+                    .catch(error => res.status(400).json({ error }));
+            })
+        })
+        .catch( error => res.status(500).json({ error }));
 };
 
 exports.likesauce = (req, res, next) => {

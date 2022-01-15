@@ -1,4 +1,4 @@
-//J'importe dans la constante http le package HTTP natif de node
+//J'importe dans la constante http le module HTTP de node
 const http = require('http');
 
 //importation de l'application express
@@ -46,7 +46,7 @@ const errorHandler = error => {
     }
 };
 
-/*Je créé une autre constante pour mon serveur et j'utilise la méthode createServer de ma constante http pour créer un serveur
+/*Je créé un serveur (backend) à l'aide de la méthode createServer
 La méthode prend comme paramètre mon application
 * */
 const server = http.createServer(app);

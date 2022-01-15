@@ -11,17 +11,15 @@ const saucesRoutes = require('./src/routes/sauces');
 //Création d'une application express
 const app = express();
 
+//importation du path, chemin du système de fichier
+const path = require('path');
+
 //Conexion à la base de données
 mongoose.connect('mongodb+srv://ocarpels:q$O9Z&6aN28U@cluster0.ih2a2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     { useNewUrlParser: true,
         useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
-
-/*Fonctions de l'application prenant comme paramètres la requête et la réponse.
-Chaque fonction dans une application express est appelé Middleware
-On passe au middleware suivant grâce au paramètre next
-*/
 
 app.use(express.json());//Middleware permettant d'extraire le corps JSON de la requête
 
@@ -32,6 +30,7 @@ app.use((req, res, next) => {
     next();
 }); //Middleware donnant l'éccés à note API corrige l'érreur CORS
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', authRoutes);
 app.use('/api/sauces', saucesRoutes);
 
