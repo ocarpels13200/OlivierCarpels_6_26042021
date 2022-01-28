@@ -18,7 +18,7 @@ router.get('/:id', auth,  saucesCtrl.getOneSauce); //Affichage d'une sauce
 router.post('/', auth, multer, saucesCtrl.addSauce); //Ajouter une sauce
 router.put('/:id', auth, multer, saucesCtrl.updateSauce); //Mise à jour d'une sauce
 router.delete('/:id', auth, saucesCtrl.deleteSauce); //Supprimer une sauce
-router.post('/:id/like', auth, saucesCtrl.likesauce); //Vote pour une sauce
+router.post('/:id/like', auth, saucesCtrl.likeDislikeSauce); //Vote pour une sauce
 
 
 module.exports = router;
