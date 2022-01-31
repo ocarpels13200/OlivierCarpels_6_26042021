@@ -17,7 +17,7 @@ exports.getSauces = (req, res, next) => {
 };
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Récupération de d'une sauce grâce à la méthode findOne(), une comparaison entre l'ID de la base de données et l'ID de la requête est faite (ligne 22) */
+Récupération d'une sauce grâce à la méthode findOne(), une comparaison entre l'ID dans la base de données et l'ID dans la requête est faite (ligne 22) */
 exports.getOneSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         .then( sauce => res.status(200).json(sauce))

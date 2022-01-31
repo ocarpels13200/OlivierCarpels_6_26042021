@@ -1,11 +1,11 @@
-//On commence par importer le framework express
+//J'importe le framework express
 const express = require('express');
 
-//La méthode express.Router() permet de créer des routeurs séparés
+//Création d'un router, permet de déplacer la logique métier dans des controllers
 const router = express.Router();
 
-//Importation des controleurs
-const authCtrl = require('../controllers/auth'); //contrôleur utilisateurs
+//J'importe le fichiers des controleurs auth
+const authCtrl = require('../controllers/auth');
 
 router.post('/signup', authCtrl.signup); //Route pour la création de comptes
 router.post('/login', authCtrl.login); //Route pour la connexion de comptes

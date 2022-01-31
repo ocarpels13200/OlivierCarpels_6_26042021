@@ -1,7 +1,7 @@
-//importation du framework mongoose
+//J'importe le framework mongoose
 const mongoose = require('mongoose');
 
-//Importation du validateur mongoose pour controler qu'une adresse e-mail est unique
+//J'importe le validateur mongoose pour controler qu'une adresse e-mail est unique
 const uniqueValidator = require('mongoose-unique-validator');
 
 //Création du schéma avec les informations à stocker

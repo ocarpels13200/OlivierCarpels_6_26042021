@@ -1,7 +1,7 @@
-//importation du framework mongoose
+//J'importe le framework mongoose
 const mongoose = require('mongoose');
 
-//Création du schéma avec les informations à stocker
+//Création du schéma de la base de données avec les informations à stocker
 const sauceSchema = mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true},
