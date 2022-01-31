@@ -43,7 +43,7 @@ exports.login = (req, res, next) => {
                             On encode l'userId pour s'assurer qu'un utilisateur ne puisse pas modifier une sauce
                             ne lui appartenant pas.
                             */
-                            'RANDOM_TOKEN_SECRET', //Clé secréte pour l'encodage, à remplacer par une chaine plus longue en production
+                            process.env.ACCESS_TOKEN_SECRET, //Clé secréte pour l'encodage, à remplacer par une chaine plus longue en production
                             { expiresIn: '24h'} //Argument de configuration gestion de l'expiration du token
                         )
                     });

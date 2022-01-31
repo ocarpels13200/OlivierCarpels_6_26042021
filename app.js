@@ -4,6 +4,8 @@ const express = require('express');
 //On importe mongoose
 const mongoose = require('mongoose');
 
+require('dotenv').config({ path: './src/config/.env' });
+
 //importation router
 const authRoutes = require('./src/routes/auth');
 const saucesRoutes = require('./src/routes/sauces');

@@ -1,4 +1,4 @@
-//J'importe dans la constante http le module HTTP de node
+//J'importe dans la constante http le module HTTP de node, j'ajout d'un s https à la place de http permet de sécuriser l'application après obtention d'un certificat
 const http = require('http');
 
 //importation de l'application express
