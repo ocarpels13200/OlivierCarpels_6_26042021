@@ -1,11 +1,13 @@
-//Je commence par importer le framework express
+//Importation du framework express
 const express = require('express');
 
+//Importation d'helmet pour sécuriser l'application contre les failles XSS
 const helmet = require("helmet");
 
-//On importe mongoose
+//Importation de mongoose
 const mongoose = require('mongoose');
 
+//Importation de dotenv pour les variables d'environnements
 require('dotenv').config({ path: './src/config/.env' });
 
 //importation router
@@ -19,7 +21,7 @@ const app = express();
 const path = require('path');
 
 //Conexion à la base de données
-mongoose.connect(`mongodb+srv://${process.env.USERNAME_DB}:${process.env.PASSWORD_DB}@cluster0.ih2a2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+mongoose.connect(`mongodb+srv://${process.env.USERNAME_DB}:${process.env.PASSWORD_DB}@cluster0.ih2a2.mongodb.net/${process.env.NAME_DB}?retryWrites=true&w=majority`,
     { useNewUrlParser: true,
         useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))
