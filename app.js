@@ -1,6 +1,8 @@
 //Je commence par importer le framework express
 const express = require('express');
 
+const helmet = require("helmet");
+
 //On importe mongoose
 const mongoose = require('mongoose');
 
@@ -17,13 +19,15 @@ const app = express();
 const path = require('path');
 
 //Conexion à la base de données
-mongoose.connect('mongodb+srv://ocarpels:q$O9Z&6aN28U@cluster0.ih2a2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${process.env.USERNAME_DB}:${process.env.PASSWORD_DB}@cluster0.ih2a2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
     { useNewUrlParser: true,
         useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 app.use(express.json());//Middleware permettant d'extraire le corps JSON de la requête
+
+app.use(helmet());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
